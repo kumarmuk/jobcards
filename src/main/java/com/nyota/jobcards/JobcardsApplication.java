@@ -8,6 +8,7 @@ public class JobcardsApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(JobcardsApplication.class, args);
+		
 	}
 
 }
