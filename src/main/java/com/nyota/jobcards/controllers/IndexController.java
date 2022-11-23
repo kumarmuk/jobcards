@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.nyota.jobcards.data.JobCategories;
+import com.nyota.jobcards.data.entity.JobCard;
+import com.nyota.jobcards.data.entity.JobCategory;
+import com.nyota.jobcards.data.repository.JobCardRepo;
 import com.nyota.jobcards.data.repository.JobCategoryRepo;
 import com.nyota.jobcards.model.User;
 import com.nyota.jobcards.model.UserCreadentials;
@@ -19,6 +21,9 @@ public class IndexController {
 
  @Autowired
  private JobCategoryRepo jcr;   
+
+ @Autowired
+ private JobCardRepo jobCardRepo;
     
     @GetMapping ("/")
     public String index (Model model) {
@@ -29,10 +34,12 @@ public class IndexController {
 
     @PostMapping ("/loginUser")
     public String loginUser (@ModelAttribute User userCredentials, BindingResult errors, Model model) {
-        JobCategories jc = new JobCategories();
-        jc.setName("Installation");
-        jc.setDescription("Where the installation needs to be performed");
-        jcr.save(jc);
+        
+        JobCategory jc = jcr.findById(1).get();
+        JobCard jobCard = new JobCard();
+        jobCard.setJobCategory(jc);
+        jobCard.setTitle( "Installation at MAK");
+        jobCardRepo.save(jobCard);
         return ("home");
     }    
 

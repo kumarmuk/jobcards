@@ -1,12 +1,14 @@
-package com.nyota.jobcards.data;
+package com.nyota.jobcards.data.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class JobCategories {
+@Table (name = "category")
+public class JobCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
