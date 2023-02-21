@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.nyota.jobcards.data.entity.Country;
 import com.nyota.jobcards.data.entity.JobCard;
 import com.nyota.jobcards.data.entity.JobCategory;
 import com.nyota.jobcards.data.repository.JobCardRepo;
 import com.nyota.jobcards.data.repository.JobCategoryRepo;
+import com.nyota.jobcards.data.repository.CountryRepo;
 import com.nyota.jobcards.model.User;
 import com.nyota.jobcards.model.UserCreadentials;
 
@@ -21,6 +23,12 @@ public class IndexController {
 
  @Autowired
  private JobCategoryRepo jcr;   
+
+ @Autowired
+ private CountryRepo cr;
+
+
+
 
  @Autowired
  private JobCardRepo jobCardRepo;
@@ -34,12 +42,10 @@ public class IndexController {
 
     @PostMapping ("/loginUser")
     public String loginUser (@ModelAttribute User userCredentials, BindingResult errors, Model model) {
-        
-        JobCategory jc = jcr.findById(1).get();
-        JobCard jobCard = new JobCard();
-        jobCard.setJobCategory(jc);
-        jobCard.setTitle( "Installation at MAK");
-        jobCardRepo.save(jobCard);
+                Iterable<Country> countries = cr.findByCountryName("KENYA");
+                for (Country country : countries) {
+                  System.out.println (country.getCountryAbbreviation());  
+                }  
         return ("home");
     }    
 
